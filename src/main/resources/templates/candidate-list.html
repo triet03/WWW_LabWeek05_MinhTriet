@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Danh Sách Ứng Viên</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f6f9;
+			margin: 0;
+			padding: 0;
+		}
+
+		header {
+			background-color: #007bff;
+			color: white;
+			padding: 20px 0;
+		}
+
+		nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+
+		nav a {
+			font-size: 24px;
+			font-weight: bold;
+			color: white;
+			text-decoration: none;
+		}
+
+		ul {
+			display: flex;
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		ul li {
+			margin: 0 15px;
+		}
+
+		ul li a {
+			font-size: 18px;
+			color: white;
+			text-decoration: none;
+		}
+
+		ul li a:hover {
+			color: #ffd700;
+		}
+
+		h1 {
+			text-align: center;
+			margin-top: 30px;
+			color: #333;
+		}
+
+		a {
+			display: inline-block;
+			margin-top: 20px;
+			text-decoration: none;
+			background-color: #28a745;
+			color: white;
+			padding: 10px 20px;
+			border-radius: 5px;
+			font-size: 18px;
+		}
+
+		a:hover {
+			background-color: #218838;
+		}
+
+		table {
+			width: 80%;
+			margin: 30px auto;
+			border-collapse: collapse;
+			background-color: white;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			border-radius: 10px;
+			overflow: hidden;
+		}
+
+		table th, table td {
+			padding: 12px 20px;
+			text-align: center;
+			border: 1px solid #ddd;
+		}
+
+		table th {
+			background-color: #007bff;
+			color: white;
+		}
+
+		table td a {
+			color: #007bff;
+			text-decoration: none;
+			padding: 5px 10px;
+			border-radius: 5px;
+		}
+
+		table td a:hover {
+			background-color: #f1f1f1;
+		}
+
+		table td a.edit {
+			background-color: #ffc107;
+		}
+
+		table td a.edit:hover {
+			background-color: #e0a800;
+		}
+
+		table td a.delete {
+			background-color: #dc3545;
+		}
+
+		table td a.delete:hover {
+			background-color: #c82333;
+		}
+	</style>
+</head>
+<body>
+<header>
+	<nav>
+		<a href="/home">Trang Chủ</a>
+		<ul>
+			<li><a href="/candidates">Ứng Viên</a></li>
+			<li><a href="/companies">Công Ty</a></li>
+			<li><a href="/jobs">Công Việc</a></li>
+			<li><a href="/skills">Kỹ Năng</a></li>
+		</ul>
+	</nav>
+</header>
+
+<h1>Danh Sách Ứng Viên</h1>
+
+<a href="/candidates/new">Thêm Ứng Viên Mới</a>
+
+<table>
+	<thead>
+	<tr>
+		<th>Id</th>
+		<th>Name</th>
+		<th>Date of Birth</th>
+		<th>Address</th>
+		<th>Phone</th>
+		<th>Email</th>
+		<th>Edit</th>
+		<th>Delete</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr th:each="candidate : ${candidates}">
+		<td th:text="${candidate.canId}"></td>
+		<td th:text="${candidate.fullName}"></td>
+		<td th:text="${candidate.dob}"></td>
+		<td th:text="${candidate.address.street + ', ' + candidate.address.city + ', ' + candidate.address.zipcode + ', ' + candidate.address.country}"></td>
+		<td th:text="${candidate.phone}"></td>
+		<td th:text="${candidate.email}"></td>
+		<td><a class="edit" th:href="@{/candidates/edit/{id}(id=${candidate.canId})}">Edit</a></td>
+		<td><a class="delete" th:href="@{/candidates/delete/{id}(id=${candidate.canId})}">Delete</a></td>
+	</tr>
+	</tbody>
+</table>
+</body>
+</html>

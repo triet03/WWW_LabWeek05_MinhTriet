@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Danh Sách Công Ty</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f6f9;
+			margin: 0;
+			padding: 0;
+		}
+
+		header {
+			background-color: #007bff;
+			color: white;
+			padding: 20px 0;
+		}
+
+		nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+
+		nav a {
+			font-size: 24px;
+			font-weight: bold;
+			color: white;
+			text-decoration: none;
+		}
+
+		ul {
+			display: flex;
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		ul li {
+			margin: 0 15px;
+		}
+
+		ul li a {
+			font-size: 18px;
+			color: white;
+			text-decoration: none;
+		}
+
+		ul li a:hover {
+			color: #ffd700;
+		}
+
+		h1 {
+			text-align: center;
+			margin-top: 40px;
+			color: #333;
+		}
+
+		a.add-company-link {
+			display: block;
+			text-align: center;
+			margin-top: 30px;
+			text-decoration: none;
+			color: #28a745;
+			font-size: 18px;
+		}
+
+		a.add-company-link:hover {
+			text-decoration: underline;
+		}
+
+		table {
+			width: 90%;
+			margin: 40px auto;
+			border-collapse: collapse;
+			background-color: white;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+		}
+
+		th, td {
+			padding: 12px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+
+		th {
+			background-color: #007bff;
+			color: white;
+		}
+
+		tr:hover {
+			background-color: #f1f1f1;
+		}
+
+		td a {
+			text-decoration: none;
+			color: #007bff;
+		}
+
+		td a:hover {
+			color: #28a745;
+		}
+	</style>
+</head>
+<body>
+<header>
+	<nav>
+		<a href="/home">Trang Chủ</a>
+		<ul>
+			<li><a href="/candidates">Ứng viên</a></li>
+			<li><a href="/companies">Công ty</a></li>
+			<li><a href="/jobs">Công việc</a></li>
+			<li><a href="/skills">Kỹ năng</a></li>
+		</ul>
+	</nav>
+</header>
+
+<h1>Danh Sách Công Ty</h1>
+
+<a href="/companies/new" class="add-company-link">Thêm Công Ty Mới</a>
+
+<table>
+	<thead>
+	<tr>
+		<th>Tên Công Ty</th>
+		<th>Mô Tả</th>
+		<th>Email</th>
+		<th>Số Điện Thoại</th>
+		<th>Website</th>
+		<th>Địa Chỉ</th>
+		<th>Edit</th>
+		<th>Delete</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr th:each="company : ${companies}">
+		<td th:text="${company.compName}"></td>
+		<td th:text="${company.about}"></td>
+		<td th:text="${company.email}"></td>
+		<td th:text="${company.phone}"></td>
+		<td th:text="${company.webUrl}"></td>
+		<td th:text="${company.address.street + ', ' + company.address.city + ', ' + company.address.zipcode + ', ' + company.address.country}"></td>
+		<td><a th:href="@{/companies/edit/{id}(id=${company.comId})}">Edit</a></td>
+		<td><a th:href="@{/companies/delete/{id}(id=${company.comId})}">Delete</a></td>
+	</tr>
+	</tbody>
+</table>
+
+</body>
+</html>

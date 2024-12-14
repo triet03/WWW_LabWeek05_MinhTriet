@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Danh Sách Công Việc</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f4f4;
+			margin: 0;
+			padding: 0;
+		}
+		header {
+			background-color: #007bff;
+			padding: 15px 0;
+			color: white;
+		}
+		nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+		nav a {
+			color: white;
+			font-size: 18px;
+			text-decoration: none;
+		}
+		nav a:hover {
+			text-decoration: underline;
+		}
+		h1 {
+			text-align: center;
+			margin-top: 30px;
+			font-size: 36px;
+			color: #333;
+		}
+		a {
+			display: block;
+			text-align: center;
+			background-color: #28a745;
+			color: white;
+			padding: 10px 20px;
+			font-size: 18px;
+			border-radius: 4px;
+			text-decoration: none;
+			margin: 20px auto;
+			max-width: 200px;
+		}
+		a:hover {
+			background-color: #218838;
+		}
+		table {
+			width: 90%;
+			margin: 30px auto;
+			border-collapse: collapse;
+			background-color: white;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			border-radius: 8px;
+			overflow: hidden;
+		}
+		th, td {
+			padding: 12px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+		th {
+			background-color: #007bff;
+			color: white;
+		}
+		tr:hover {
+			background-color: #f1f1f1;
+		}
+		td a {
+			color: white;
+			text-decoration: none;
+		}
+		td a:hover {
+			text-decoration: underline;
+		}
+	</style>
+</head>
+<body>
+
+<header>
+	<nav>
+		<a href="/home">Trang Chủ</a>
+		<ul style="display: flex; list-style-type: none; margin: 0; padding: 0;">
+			<li style="margin: 0 15px;"><a href="/candidates">Ứng viên</a></li>
+			<li style="margin: 0 15px;"><a href="/companies">Công ty</a></li>
+			<li style="margin: 0 15px;"><a href="/jobs">Công việc</a></li>
+			<li style="margin: 0 15px;"><a href="/skills">Kỹ năng</a></li>
+		</ul>
+	</nav>
+</header>
+
+<h1>Danh Sách Công Việc</h1>
+
+<a href="/jobs/new">Đăng Tin Tuyển Dụng Mới</a>
+
+<table>
+	<thead>
+	<tr>
+		<th>Tên Công Việc</th>
+		<th>Mô Tả</th>
+		<th>Công Ty</th>
+		<th>Gợi Ý Ứng Viên</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr th:each="job : ${jobs}">
+		<td th:text="${job.jobName}"></td>
+		<td th:text="${job.jobDesc}"></td>
+		<td th:text="${job.company.compName}"></td>
+		<td><a th:href="@{/jobs/recommendations/{id}(id=${job.jobId})}">Gợi Ý Ứng Viên</a></td>
+	</tr>
+	</tbody>
+</table>
+
+</body>
+</html>
